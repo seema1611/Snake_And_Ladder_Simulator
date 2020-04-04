@@ -2,6 +2,7 @@
 
 #Constants
 START_POSITION=0
+WINNING_POSITION=100
 NO_PLAY=0
 LADDER=1
 SNAKE=2
@@ -23,7 +24,7 @@ function getOption() {
 }
 
 #Function to check for NO_PLAY, SNAKE and LADDER
-function main() {
+function toCheck() {
 
 	rollTheDie
 	getOption
@@ -38,6 +39,21 @@ function main() {
 			position_Of_Player=$(($position_Of_Player-$addNumber))
 			;;
 	esac
+
+	if [ $position_Of_Player -lt $START_POSITION ]
+	then
+		position_Of_Player=$START_POSITION
+	fi
+
+}
+
+#Function to checked player is reached winning position Or NOT
+function main() {
+
+	while [ $position_Of_Player -ne $WINNING_POSITION ]
+	do
+		toCheck
+	done
 
 }
 
