@@ -39,10 +39,19 @@ function toCheck() {
 			position_Of_Player=$(($position_Of_Player-$addNumber))
 			;;
 	esac
+	checkPlayerCondition
+
+}
+
+#Function to checked all start and winning condition of player
+function checkPlayerCondition() {
 
 	if [ $position_Of_Player -lt $START_POSITION ]
 	then
 		position_Of_Player=$START_POSITION
+	elif [ $position_Of_Player -gt $WINNING_POSITION ]
+	then
+		player_Of_Position=$(($position_Of_Player-$addNumber))
 	fi
 
 }
