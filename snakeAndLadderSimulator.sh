@@ -7,14 +7,15 @@ NO_PLAY=0
 LADDER=1
 SNAKE=2
 
-
 #Variable
 position_Of_Player=0
+i=0
 
 #Function to generate random between 1-6
 function rollTheDie() {
 
 	addNumber=$((RANDOM%6 +1))
+	((i++))
 }
 
 #Function to generate random for cases
@@ -39,19 +40,26 @@ function toCheck() {
 			position_Of_Player=$(($position_Of_Player-$addNumber))
 			;;
 	esac
-	checkPlayerCondition
+
+  if [ $position_Of_Player -lt $START_POSITION ]
+  then
+    position_Of_Player=$START_POSITION
+	elif [ $position_Of_Player -gt $WINNING_POSITION ]
+	then
+		position_Of_Player=$(($position_Of_Player-$addNumber))
+	fi
+
+	checkWinningCondition
 
 }
 
-#Function to checked all start and winning condition of player
-function checkPlayerCondition() {
+#Function to show number of count the roll die and position of winning
+function checkWinningCondition() {
 
-	if [ $position_Of_Player -lt $START_POSITION ]
+	if [ $position_Of_Player -eq $WINNING_POSITION ]
 	then
-		position_Of_Player=$START_POSITION
-	elif [ $position_Of_Player -gt $WINNING_POSITION ]
-	then
-		player_Of_Position=$(($position_Of_Player-$addNumber))
+		echo "Position of winning: " $position_Of_Player
+		echo "which times Roll a Die: " $i
 	fi
 
 }
