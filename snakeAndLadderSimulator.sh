@@ -2,25 +2,47 @@
 
 #Constants
 START_POSITION=0
-WINNING_POSITION=100
+WINNING_POSITION=10
 NO_PLAY=0
 LADDER=1
 SNAKE=2
 
 #Variable
 position_Of_Player=0
-i=0
+playerTurn=0
+first_Player_Position=$START_POSITION
+second_Player_Position=$START_POSITION
+
+#First player turn
+function firstPlayer() {
+
+	echo "--First Player--"
+	position_Of_Player=$first_Player_Position
+	toCheck
+	first_Player_Position=$position_Of_Player
+	echo "Position of First player: " $first_Player_Position
+	playerTurn=1
+}
+
+#Second player turn
+function secondPlayer() {
+
+  echo "--Second Player--"
+  position_Of_Player=$second_Player_Position
+  toCheck
+  second_Player_Position=$position_Of_Player
+	echo "Position of Second player: " $second_Player_Position
+	playerTurn=0
+}
+
 
 #Function to generate random between 1-6
 function rollTheDie() {
-
 	addNumber=$((RANDOM%6 +1))
-	((i++))
 }
 
 #Function to generate random for cases
 function getOption() {
-
 	option=$((RANDOM%3))
 }
 
@@ -41,37 +63,51 @@ function toCheck() {
 			;;
 	esac
 
-	if [ $position_Of_Player -lt $START_POSITION ]
-	then
-		position_Of_Player=$START_POSITION
-	elif [ $position_Of_Player -gt $WINNING_POSITION ]
-	then
-		position_Of_Player=$(($position_Of_Player-$addNumber))
-	fi
+	toCheckAllCondition
+}
 
-	checkWinningCondition
+#function to check all condition
+function toCheckAllCondition() {
+
+  if [ $position_Of_Player -lt $START_POSITION ]
+  then
+    position_Of_Player=$START_POSITION
+  elif [ $position_Of_Player -gt $WINNING_POSITION ]
+  then
+    position_Of_Player=$(($position_Of_Player-$addNumber))
+  fi
 
 }
 
 #Function to show number of count the roll die and position of winning
 function checkWinningCondition() {
 
-	if [ $position_Of_Player -eq $WINNING_POSITION ]
+	if [ $first_Player_Position -eq $WINNING_POSITION ]
 	then
-		echo "Position of winning: " $position_Of_Player
-		echo "which times Roll a Die: " $i
+		echo "First Player won"
+	elif [ $second_Player_Position -eq $WINNING_POSITION ]
+	then
+		echo "Second Player Won"
 	fi
 
 }
+
 
 #Function to checked player is reached winning position Or NOT
 function main() {
 
 	while [ $position_Of_Player -ne $WINNING_POSITION ]
 	do
-		toCheck
-	done
 
+		if [ $playerTurn -eq 0 ]
+		then
+			firstPlayer
+		else
+			secondPlayer
+		fi
+	checkWinningCondition
+
+	done
 }
 
 #Main function call
