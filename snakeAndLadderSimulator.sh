@@ -69,13 +69,13 @@ function toCheck() {
 #function to check all condition
 function toCheckAllCondition() {
 
-  if [ $position_Of_Player -lt $START_POSITION ]
-  then
-    position_Of_Player=$START_POSITION
-  elif [ $position_Of_Player -gt $WINNING_POSITION ]
-  then
-    position_Of_Player=$(($position_Of_Player-$addNumber))
-  fi
+  	if [ $position_Of_Player -lt $START_POSITION ]
+  	then
+    	position_Of_Player=$START_POSITION
+  	elif [ $position_Of_Player -gt $WINNING_POSITION ]
+  	then
+    	position_Of_Player=$(($position_Of_Player-$addNumber))
+  	fi
 
 }
 
