@@ -2,7 +2,7 @@
 
 #Constants
 START_POSITION=0
-WINNING_POSITION=10
+WINNING_POSITION=100
 NO_PLAY=0
 LADDER=1
 SNAKE=2
@@ -27,10 +27,10 @@ function firstPlayer() {
 #Second player turn
 function secondPlayer() {
 
-  echo "--Second Player--"
-  position_Of_Player=$second_Player_Position
-  toCheck
-  second_Player_Position=$position_Of_Player
+  	echo "--Second Player--"
+  	position_Of_Player=$second_Player_Position
+  	toCheck
+  	second_Player_Position=$position_Of_Player
 	echo "Position of Second player: " $second_Player_Position
 	playerTurn=0
 }
